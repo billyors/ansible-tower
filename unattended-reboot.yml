@@ -1,0 +1,21 @@
+---
+- hosts: "{{ target }}"
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+  - name: restart server
+    shell: 'sleep 1 && shutdown -r now "Reboot triggered by Ansible" && sleep 1'
+    async: 1
+    poll: 0
+    when: update_result.changed == True
+
+  - name: Wait for the server to finish rebooting
+    local_action:
+      module: wait_for
+      host: "{{ inventory_hostname }}"
+      state: started
+      port: 22
+    become: false
+    when: update_result.changed == True

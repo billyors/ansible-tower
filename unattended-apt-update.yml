@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Update in ubuntu
+    apt:
+      update_cache: yes
+
+  - name: upgrade in ubuntu
+    become_user: root
+    apt:
+      upgrade: yes
+      state: latest
+
+  - name: clean in ubuntu
+    apt:
+      autoclean: yes
+      autoremove: yes
