@@ -10,8 +10,9 @@
   - name: upgrade in ubuntu
     become_user: root
     apt:
-      upgrade: yes
+      upgrade: full
       state: latest
+      allow_downgrade: yes
 
   - name: clean in ubuntu
     apt:
