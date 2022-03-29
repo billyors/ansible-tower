@@ -1,20 +1,20 @@
 ---
 - hosts: all
-  become: true
+  become: false
   tasks:
 
-  - name: Update in ubuntu
+  - name: Update cache in debian
     apt:
       update_cache: yes
 
-  - name: upgrade in ubuntu
+  - name: upgrade packages in debian
     become_user: root
     apt:
       upgrade: full
       state: latest
       allow_downgrade: yes
 
-  - name: clean in ubuntu
+  - name: clean packages in debian
     apt:
       autoclean: yes
       autoremove: yes
